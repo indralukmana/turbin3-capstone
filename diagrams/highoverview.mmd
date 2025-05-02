@@ -1,0 +1,23 @@
+
+graph TD
+   A[User Wallet] -.-> Z[Optionally Setup Mentor Wallet] -.-> B
+  A -->|Deposit USDC/SOL| B[Vault Smart Contract]
+  A --> C[UI: Set Behavioral Gates]
+
+  C --> D[Gate 1: Mindset Check - Checkbox or Form]
+  C --> E[Gate 2: Investment Plan - Text Entry]
+  C --> F[Gate 3: Optional Mentor Approval ]
+
+  F --> G[Mentor Wallet Signs Approval]
+
+  D --> H{All Gates Complete?}
+  E --> H
+  G --> H
+
+  H -- Yes --> I[Unlock Button Enabled]
+  I --> J[User Withdraws via Frontend]
+  J --> B
+  B -->|Release Funds| A
+
+  H -- No --> K[Vault Remains Locked]
+

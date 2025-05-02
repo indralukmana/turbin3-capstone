@@ -1,0 +1,12 @@
+stateDiagram-v2
+    [*] --> Locked
+    Locked --> PlanSubmitted: Submit Plan
+    PlanSubmitted --> CooldownStarted: Solo Mode
+    PlanSubmitted --> AwaitingMentor: Mentor Mode
+    CooldownStarted --> UnlockReady: Wait 24h
+    AwaitingMentor --> UnlockReady: Mentor Approves
+    AwaitingMentor --> Timeout: Wait 72h
+    Timeout --> PlanSubmitted: Resubmit/New Mentor
+    Timeout --> CooldownStarted: Switch to Solo
+    UnlockReady --> Unlocked: User Confirms
+    Unlocked --> [*]

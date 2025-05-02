@@ -1,0 +1,13 @@
+flowchart TD
+   user[User Wallet]
+   vault[VaultAccount PDA]
+   offchain[Off-chain Plan DB]
+   mentor[Optional Mentor Pubkey]
+   usdc[Token Vault ATA/PDA]
+
+   user --> vault
+   user --> offchain
+   user --> usdc
+   vault -->|references| mentor
+   vault --> usdc
+   offchain -.->|plan reference| vault

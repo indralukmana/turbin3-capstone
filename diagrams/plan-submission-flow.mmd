@@ -1,0 +1,29 @@
+sequenceDiagram
+    actor User
+    participant UI
+    participant PlanChecker
+    participant DB
+    participant Vault
+
+    User->>UI: Open Plan Form
+    UI->>UI: Load Template
+
+    loop For Each Section
+        User->>UI: Fill Section
+        UI->>PlanChecker: Check Section Completeness
+        PlanChecker-->>UI: Section Status
+        UI->>UI: Update Progress
+    end
+
+    User->>UI: Submit Plan
+    UI->>PlanChecker: Verify Plan Requirements
+
+    alt Plan Incomplete
+        PlanChecker-->>UI: Missing Requirements
+        UI->>User: Show Incomplete Fields
+    else Plan Complete
+        UI->>DB: Store Structured Plan
+        UI->>Vault: Submit Plan Hash
+        Vault-->>UI: Confirmation
+        UI->>User: Show Success
+    end

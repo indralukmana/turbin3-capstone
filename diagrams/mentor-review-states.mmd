@@ -1,0 +1,7 @@
+stateDiagram-v2
+    [*] --> PendingReview: Plan Submitted
+    PendingReview --> InProgress: Start Review
+    InProgress --> RequestChanges: Need Revisions
+    InProgress --> ReadyApproval: Meets Requirements
+    RequestChanges --> PendingReview: Plan Updated
+    ReadyApproval --> [*]: Sign Approval

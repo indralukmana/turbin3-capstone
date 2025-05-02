@@ -1,0 +1,15 @@
+flowchart TD
+   U[User] --> C[Create Vault]
+   C --> S[Submit Plan]
+   S --> DB[(Off-chain Database)]
+   DB --> D{Cooldown or Mentor Required?}
+
+   D -- Cooldown --> T[Wait N hours]
+   D -- Mentor --> M[Mentor Reviews Plan]
+   M --> MC[Add Comments]
+   MC --> MA[Mentor Signs Approval]
+
+   T --> U2[Unlock Allowed]
+   MA --> U2
+
+   U2 --> W[Withdraw Funds]

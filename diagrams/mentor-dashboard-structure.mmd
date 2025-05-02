@@ -1,0 +1,35 @@
+classDiagram
+    class DashboardView {
+        +PendingPlans pendingReviews
+        +ReviewHistory completedReviews
+        +Statistics mentorStats
+        +loadDashboard()
+        +filterPlans()
+        +sortByPriority()
+    }
+
+    class PendingPlans {
+        +Plan[] plans
+        +Number timeRemaining
+        +showPlanDetails()
+        +startReview()
+        +filterByStatus()
+    }
+
+    class ReviewHistory {
+        +Review[] reviews
+        +filterByDate()
+        +exportHistory()
+        +searchReviews()
+    }
+
+    class Statistics {
+        +Number plansReviewed
+        +Number avgResponseTime
+        +Number activeVaults
+        +generateReport()
+    }
+
+    DashboardView *-- PendingPlans
+    DashboardView *-- ReviewHistory
+    DashboardView *-- Statistics

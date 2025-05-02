@@ -1,0 +1,32 @@
+sequenceDiagram
+    actor User
+    participant UI
+    participant Vault
+    participant DB
+    actor Mentor
+
+    User->>UI: Submit Plan
+    UI->>DB: Store Plan
+    UI->>Vault: Submit Plan Hash + Mentor Address
+    Note over Vault: Start 72h Timer
+
+    par Mentor Review Path
+        Mentor->>UI: Review Plan
+        Mentor->>Vault: Sign Approval/Rejection
+    and Timeout Path
+        loop Check Timeout
+            UI->>Vault: Check Status
+            Vault->>Vault: Verify 72h Status
+            alt 72h Passed
+                Vault->>UI: Enable Timeout Options
+                User->>UI: Choose Action
+                alt Resubmit to New Mentor
+                    UI->>Vault: Update Mentor
+                    UI->>DB: Update Plan Status
+                else Switch to Solo Mode
+                    UI->>Vault: Change Mode
+                    Vault->>Vault: Start Cooldown
+                end
+            end
+        end
+    end

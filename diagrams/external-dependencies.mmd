@@ -1,0 +1,9 @@
+flowchart TD
+   frontend[Frontend App] --> SIWS[Sign-In With Solana]
+   frontend --> wallet[Phantom Wallet / Signer]
+   frontend --> submit[Submit Plan]
+   frontend --> mentorView[Mentor Dashboard]
+
+   backend[Off-chain Plan Database] --> mentorView
+   backend --> submit
+   backend --> planHistory[Plan History]
