@@ -20,7 +20,8 @@ roadmap for building, understanding, and mastering a Solana/Anchor dApp
 
 ## 📚 Learning & Implementation Roadmap
 
-- [ ] 1.  VaultAccount: What, why, and how
+- [x] 1.  VaultAccount: What, why, and how (see
+      [01-learning-vaultaccount.md](./01-learning-vaultaccount.md))
 - [ ] 2.  Initialization: Creating the VaultAccount
 - [ ] 3.  PDA Basics: What are they, how to derive, why use them
 - [ ] 4.  Anchor Account Constraints: Safety and validation
