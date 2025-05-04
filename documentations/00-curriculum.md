@@ -24,7 +24,8 @@ roadmap for building, understanding, and mastering a Solana/Anchor dApp
       [01-learning-vaultaccount.md](./01-learning-vaultaccount.md))
 - [x] 2.  Initialization: Creating the VaultAccount (see
       [02-learning-initialize.md](./02-learning-initialize.md))
-- [ ] 3.  PDA Basics: What are they, how to derive, why use them
+- [x] 3.  PDA Basics: What are they, how to derive, why use them (see
+      [03-learning-pda.md](./03-learning-pda.md))
 - [ ] 4.  Anchor Account Constraints: Safety and validation
 - [ ] 5.  Token Vaults: Managing SPL tokens
 - [ ] 6.  Off-chain Plan Storage: Architecture and integration
