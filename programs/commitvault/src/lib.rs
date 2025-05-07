@@ -7,10 +7,28 @@ declare_id!("3gmuFz3ysgVSCUp1SvMYRyCHFU6iEx2VdpyM4CTPG5Bs");
 pub mod commitvault {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        msg!("Greetings from: {:?}", ctx.program_id);
-        Ok(())
-    }
+    pub fn initialize(
+    ctx: Context<Initialize>,
+    unlock_strategy: u8,
+    plan_hash: [u8; 32],
+    cooldown_end: i64,
+    mentor: Pubkey,
+) -> Result<()> {
+    let vault = &mut ctx.accounts.vault_account;
+    vault.owner = *ctx.accounts.user.key;
+    vault.status = 0; // initial locked
+    vault.unlock_strategy = unlock_strategy;
+    vault.token_vault = Pubkey::default();
+    vault.plan_hash = plan_hash;
+    vault.cooldown_end = cooldown_end;
+    vault.mentor = mentor;
+    vault.mentor_approval_status = 0; // initial pending
+
+    msg!("Greetings from: {:?}", ctx.program_id);
+
+
+    Ok(())
+}
 }
 
 #[derive(Accounts)]
@@ -31,25 +49,7 @@ pub struct Initialize<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn initialize(
-    ctx: Context<Initialize>,
-    unlock_strategy: u8,
-    plan_hash: [u8; 32],
-    cooldown_end: i64,
-    mentor: Pubkey,
-) -> Result<()> {
-    let vault = &mut ctx.accounts.vault_account;
-    vault.owner = *ctx.accounts.user.key;
-    vault.status = 0; // initial locked
-    vault.unlock_strategy = unlock_strategy;
-    vault.token_vault = Pubkey::default();
-    vault.plan_hash = plan_hash;
-    vault.cooldown_end = cooldown_end;
-    vault.mentor = mentor;
-    vault.mentor_approval_status = 0; // initial pending
 
-    Ok(())
-}
 
 #[account]
 pub struct VaultAccount {
