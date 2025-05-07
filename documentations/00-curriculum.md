@@ -30,11 +30,11 @@ roadmap for building, understanding, and mastering a Solana/Anchor dApp
   - [x] 2d. Define the `#[derive(Accounts)]` struct for `initialize`.
   - See: [02-learning-initialize.md](./02-learning-initialize.md),
     [03-learning-pda.md](./03-learning-pda.md)
-- [ ] 3. Cross-Program Invocations (CPI) & Token Deposit
-  - [ ] 3a. Understand what CPI is and why it's needed (for SPL tokens).
-  - [ ] 3b. Learn how to perform CPI in Anchor.
-  - [ ] 3c. Understand SPL Tokens and Associated Token Accounts (ATAs).
-  - [ ] 3d. Implement the `deposit` instruction:
+- [x] 3. Cross-Program Invocations (CPI) & Token Deposit
+  - [x] 3a. Understand what CPI is and why it's needed (for SPL tokens).
+  - [x] 3b. Learn how to perform CPI in Anchor.
+  - [x] 3c. Understand SPL Tokens and Associated Token Accounts (ATAs).
+  - [x] 3d. Implement the `deposit` instruction:
     - Define `#[derive(Accounts)]` for `deposit`.
     - Implement `deposit` function using CPI to transfer tokens to the vault's
       ATA.
