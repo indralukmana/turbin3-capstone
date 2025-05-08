@@ -53,6 +53,58 @@ pub mod commitvault {
 
         Ok(())
     }
+
+    pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()>{
+
+        let vault = &ctx.accounts.vault_account;
+
+        // Check if the vault is unlocked
+        if vault.status != 1 {
+            return Err(crate::ErrorCode::VaultNotUnlocked.into());
+        }
+
+        match vault.unlock_strategy {
+            0 => { // Cooldown strategy
+                let clock = Clock::get()?;
+                if clock.unix_timestamp < vault.cooldown_end {
+                    return Err(crate::ErrorCode::VaultStillLockedByCooldown.into());
+                }
+            }
+            1 => {
+                if vault.mentor_approval_status != 1 {
+                    return Err(crate::ErrorCode::MentorApprovalPendingOrRejected.into());
+                }
+            }
+            _ => {
+                return Err(crate::ErrorCode::InvalidUnlockStrategy.into());
+            }
+        }
+
+        // Get the vault's bump seed for signing CPI
+        let bump_seed = ctx.bumps.vault_account;
+        let vault_seeds = &[
+            b"vault",
+            ctx.accounts.owner.key.as_ref(),
+            &[bump_seed],
+        ];
+        let signer_seeds = &[&vault_seeds[..]];
+
+        // Create the CPI context for token transfer
+        let cpi_accounts = SplTransfer {
+            from: ctx.accounts.vault_token_account.to_account_info(), // vault token account
+            to: ctx.accounts.user_token_account.to_account_info(), // the user/vault owner token account
+            authority: ctx.accounts.vault_account.to_account_info(), // the vault PDA as authority
+        };
+
+        let cpi_program = ctx.accounts.token_program.to_account_info();
+        let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts).with_signer(signer_seeds);
+
+        // perform token transfer
+        token::transfer(cpi_ctx, amount)?;
+
+        Ok(())
+
+    }
 }
 
 #[derive(Accounts)]
@@ -119,4 +171,56 @@ pub struct Deposit<'info> {
     pub system_program: Program<'info, System>,
 
     pub mint: Account<'info, Mint>, // The token mint account
+}
+
+#[derive(Accounts)]
+pub struct Withdraw<'info> {
+    #[account(
+        mut,
+        seeds = [b"vault", owner.key().as_ref()],
+        bump,
+        has_one = owner @ crate::ErrorCode::Unauthorized, 
+    )]
+    pub vault_account: Account<'info, VaultAccount>, // The vault PDA
+
+    #[account(mut, signer)]
+    pub owner: Signer<'info>, // The user's wallet, need to sign
+
+    #[account(
+        mut, // The user's account balance will change so it is mutable,
+        token::mint = mint, // ensure this token account holds the correct token type
+        token::authority = owner, //ensure the user is the authority over this token account
+    )]
+    pub user_token_account: Account<'info, TokenAccount>,
+
+    #[account(
+        mut,
+        token::mint = mint, // Ensure this token account holds the correct token type
+        token::authority = vault_account, // Ensure the vault PDA is the authority over this
+        address = vault_account.token_vault, // Use 'address' to verify the account's public key
+    )]
+    pub vault_token_account: Account<'info, TokenAccount>,
+
+    #[account(address = anchor_spl::token::ID)]
+    pub token_program: Program<'info, Token>, // The SPL token program itself
+
+    pub mint: Account<'info, Mint>, // The token mint account
+}
+
+#[error_code]
+pub enum ErrorCode {
+    #[msg("You are not authorized to perform this action.")]
+    Unauthorized,
+
+    #[msg("The vault is not unlocked")]
+    VaultNotUnlocked,
+
+    #[msg("The vault still locked by cooldown")]
+    VaultStillLockedByCooldown,
+
+    #[msg("Mentor has not approved")]
+    MentorApprovalPendingOrRejected,
+
+    #[msg("Not valid unlock")]
+    InvalidUnlockStrategy
 }

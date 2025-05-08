@@ -35,27 +35,30 @@ roadmap for building, understanding, and mastering a Solana/Anchor dApp
   - [x] 3b. Learn how to perform CPI in Anchor.
   - [x] 3c. Understand SPL Tokens and Associated Token Accounts (ATAs).
   - [x] 3d. Implement the `deposit` instruction:
-    - Define `#[derive(Accounts)]` for `deposit`.
-    - Implement `deposit` function using CPI to transfer tokens to the vault's
-      ATA.
-- [ ] 4. Token Withdrawal
-  - [ ] 4a. Implement the `withdraw` instruction:
-    - Define `#[derive(Accounts)]` for `withdraw`.
-    - Implement `withdraw` function using CPI to transfer tokens from the
-      vault's ATA.
-    - Add checks for vault status ('unlocked').
+    - [x] Define `#[derive(Accounts)]` for `deposit`.
+    - [x] Implement `deposit` function using CPI to transfer tokens to the
+          vault's ATA.
+  - See: [04-learning-cpi-deposit.md](./04-learning-cpi-deposit.md)
+- [x] 4. Token Withdrawal
+  - [x] 4a. Implement the `withdraw` instruction:
+    - [x] Define `#[derive(Accounts)]` for `withdraw`.
+    - [x] Implement `withdraw` function using CPI to transfer tokens from the
+          vault's ATA.
+    - [x] Add checks for vault status ('unlocked').
+  - See: [05-learning-withdraw.md](./05-learning-withdraw.md)
 - [ ] 5. Behavioral Gates: Plan Hash & Cooldown
   - [ ] 5a. Implement the `submit_plan_hash` instruction:
-    - Define `#[derive(Accounts)]` for `submit_plan_hash`.
-    - Implement `submit_plan_hash` function to store the hash and update status.
+    - [ ] Define `#[derive(Accounts)]` for `submit_plan_hash`.
+    - [ ] Implement `submit_plan_hash` function to store the hash and update
+          status.
   - [ ] 5b. Implement cooldown logic:
-    - Add checks in `withdraw` or a separate instruction to verify
-      `cooldown_end`.
+    - [ ] Add checks in `withdraw` or a separate instruction to verify
+          `cooldown_end`.
 - [ ] 6. Behavioral Gates: Mentor Approval
   - [ ] 6a. Implement mentor approval/rejection instructions:
-    - Define `#[derive(Accounts)]` for `mentor_approve` and `mentor_reject`.
-    - Implement functions, including mentor signature verification.
-    - Update `mentor_approval_status`.
+    - [ ] Define `#[derive(Accounts)]` for `mentor_approve` and `mentor_reject`.
+    - [ ] Implement functions, including mentor signature verification.
+    - [ ] Update `mentor_approval_status`.
   - [ ] 6b. Implement mentor timeout logic.
 - [ ] 7. Error Handling
   - [ ] 7a. Learn how to define custom errors in Anchor.
