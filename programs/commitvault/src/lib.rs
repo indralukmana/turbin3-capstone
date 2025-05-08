@@ -110,8 +110,7 @@ pub mod commitvault {
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     #[account(mut, signer)]
-    /// CHECK: This is the user paying for the vault account creation
-    pub user: AccountInfo<'info>,
+    pub user: Signer<'info>,
 
     #[account(
         init, // create the account,
@@ -143,8 +142,7 @@ pub struct Deposit<'info> {
     pub vault_account: Account<'info, VaultAccount>, // The vault PDA
 
     #[account(mut, signer)]
-    // CHECK: The user that is depositing tokens
-    pub user: AccountInfo<'info>, // The user's wallet, need to sign
+    pub user: Signer<'info>, // The user's wallet, need to sign
 
     #[account(
         mut, // The user's account balance will change so it is mutable,
@@ -164,7 +162,6 @@ pub struct Deposit<'info> {
     #[account(address = anchor_spl::token::ID)]
     pub token_program: Program<'info, Token>, // The SPL token program itself
 
-    // CHECK: required for init_if_needed
     #[account(address = anchor_spl::associated_token::ID)]
     pub associated_token_program: Program<'info, AssociatedToken>,
 

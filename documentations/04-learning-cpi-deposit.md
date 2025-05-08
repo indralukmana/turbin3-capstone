@@ -81,7 +81,7 @@ The `deposit` instruction will require several accounts of type `TokenAccount`
 to be passed in.
 
 - Accounts to consider:
-  - `user` (signer, payer for ATA creation if needed)
+  - `user` (`Signer<'info>`, signer, payer for ATA creation if needed)
   - `user_token_account` (source of funds)
   - `vault_account` (PDA, might be needed for ATA seeds or constraints)
   - `vault_token_account` (destination ATA, potentially initialized if it
@@ -107,6 +107,9 @@ to be passed in.
      // ... vault_account (PDA), mint, token_program, associated_token_program, system_program
  }
 ```
+
+Note: The `user` account in the `Deposit` struct is defined as `Signer<'info>`,
+as it is required to sign the transaction.
 
 ### 3b. Implementing the `deposit` function
 

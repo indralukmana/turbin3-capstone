@@ -27,8 +27,11 @@ flowchart TD
 
 - `#[account(init, payer = user, space = ...)]`: Tells Anchor to create this
   account on-chain, make the user pay for it, and reserve this much space for
-  its data.
-  NOTE: the `user` need to have comment with //CHECK xxxxx for safety check in Anchor
+  its data. NOTE: The `user` account is defined as `Signer<'info>`. This is used
+  instead of `AccountInfo<'info>` because it's primarily needed for signing the
+  transaction and its public key is used for PDA derivation. `Signer` is a more
+  type-safe way to handle signer accounts when the full `AccountInfo` is not
+  required for other purposes.
 - `seeds = [b"vault", user.key().as_ref()]`: How Anchor derives the PDA (Program
   Derived Address). It combines the string "vault" and the user's public key to
   create a unique address for each user's vault.
