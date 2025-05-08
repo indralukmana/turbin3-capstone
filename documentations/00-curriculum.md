@@ -46,36 +46,36 @@ roadmap for building, understanding, and mastering a Solana/Anchor dApp
           vault's ATA.
     - [x] Add checks for vault status ('unlocked').
   - See: [05-learning-withdraw.md](./05-learning-withdraw.md)
-- [ ] 5. Behavioral Gates: Plan Hash & Cooldown
-  - [ ] 5a. Implement the `submit_plan_hash` instruction:
+- [ ] 5. Testing and Debugging
+  - [ ] 5a. Expand tests to cover all implemented instructions.
+  - [ ] 5b. Learn debugging techniques.
+- [ ] 6. Behavioral Gates: Plan Hash & Cooldown
+  - [ ] 6a. Implement the `submit_plan_hash` instruction:
     - [ ] Define `#[derive(Accounts)]` for `submit_plan_hash`.
     - [ ] Implement `submit_plan_hash` function to store the hash and update
           status.
-  - [ ] 5b. Implement cooldown logic:
+  - [ ] 6b. Implement cooldown logic:
     - [ ] Add checks in `withdraw` or a separate instruction to verify
           `cooldown_end`.
-- [ ] 6. Behavioral Gates: Mentor Approval
-  - [ ] 6a. Implement mentor approval/rejection instructions:
+- [ ] 7. Behavioral Gates: Mentor Approval
+  - [ ] 7a. Implement mentor approval/rejection instructions:
     - [ ] Define `#[derive(Accounts)]` for `mentor_approve` and `mentor_reject`.
     - [ ] Implement functions, including mentor signature verification.
     - [ ] Update `mentor_approval_status`.
-  - [ ] 6b. Implement mentor timeout logic.
-- [ ] 7. Error Handling
-  - [ ] 7a. Learn how to define custom errors in Anchor.
-  - [ ] 7b. Implement error checks for various scenarios.
-- [ ] 8. Off-chain Plan Storage Integration (Conceptual/Frontend Focus)
-  - [ ] 8a. Understand how the on-chain program interacts with the off-chain
+  - [ ] 7b. Implement mentor timeout logic.
+- [ ] 8. Error Handling
+  - [ ] 8a. Learn how to define custom errors in Anchor.
+  - [ ] 8b. Implement error checks for various scenarios.
+- [ ] 9. Off-chain Plan Storage Integration (Conceptual/Frontend Focus)
+  - [ ] 9a. Understand how the on-chain program interacts with the off-chain
         database (via plan hash).
-  - [ ] 8b. (Focus shifts to frontend/backend for actual integration).
-- [ ] 9. Frontend Integration
-  - [ ] 9a. Learn how to connect a frontend (e.g., React) to your Solana program
-        using Anchor client.
-  - [ ] 9b. Build UI for vault creation, plan submission, status display, and
+  - [ ] 9b. (Focus shifts to frontend/backend for actual integration).
+- [ ] 10. Frontend Integration
+  - [ ] 10a. Learn how to connect a frontend (e.g., React) to your Solana
+        program using Anchor client.
+  - [ ] 10b. Build UI for vault creation, plan submission, status display, and
         withdrawal.
-  - [ ] 9c. Build Mentor UI for reviewing and approving plans.
-- [ ] 10. Testing and Debugging
-  - [ ] 10a. Expand tests to cover all implemented instructions.
-  - [ ] 10b. Learn debugging techniques.
+  - [ ] 10c. Build Mentor UI for reviewing and approving plans.
 
 ---
 
