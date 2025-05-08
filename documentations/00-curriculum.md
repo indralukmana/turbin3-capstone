@@ -47,8 +47,9 @@ roadmap for building, understanding, and mastering a Solana/Anchor dApp
     - [x] Add checks for vault status ('unlocked').
   - See: [05-learning-withdraw.md](./05-learning-withdraw.md)
 - [ ] 5. Testing and Debugging
-  - [ ] 5a. Expand tests to cover all implemented instructions.
-  - [ ] 5b. Learn debugging techniques.
+  - [x] 5a. Test the `initialize` instruction.
+  - [ ] 5b. Test the `deposit` instruction.
+  - [ ] 5c. Test the `withdraw` instruction.
 - [ ] 6. Behavioral Gates: Plan Hash & Cooldown
   - [ ] 6a. Implement the `submit_plan_hash` instruction:
     - [ ] Define `#[derive(Accounts)]` for `submit_plan_hash`.
