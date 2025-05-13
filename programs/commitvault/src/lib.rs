@@ -17,7 +17,7 @@ pub mod commitvault {
         mentor: Pubkey,
     ) -> Result<()> {
         let vault = &mut ctx.accounts.vault_account;
-        vault.owner = *ctx.accounts.user.key;
+        vault.owner = *ctx.accounts.owner.key;
         vault.status = 0; // initial locked
         vault.unlock_strategy = unlock_strategy;
         vault.token_vault = Pubkey::default();
@@ -110,13 +110,13 @@ pub mod commitvault {
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     #[account(mut, signer)]
-    pub user: Signer<'info>,
+    pub owner: Signer<'info>,
 
     #[account(
         init, // create the account,
-        payer = user, // who pays for the account creation
+        payer = owner, // who pays for the account creation
         space = 8 + std::mem::size_of::<VaultAccount>(),
-        seeds = [b"vault", user.key().as_ref()],
+        seeds = [b"vault", owner.key().as_ref()],
         bump
     )]
     pub vault_account: Account<'info, VaultAccount>,
