@@ -36,7 +36,7 @@ pub mod commitvault {
         let cpi_accounts = SplTransfer {
             from: ctx.accounts.user_token_account.to_account_info(),
             to: ctx.accounts.vault_token_account.to_account_info(),
-            authority: ctx.accounts.user.to_account_info(),
+            authority: ctx.accounts.owner.to_account_info(),
         };
 
         let cpi_program = ctx.accounts.token_program.to_account_info();
@@ -142,18 +142,18 @@ pub struct Deposit<'info> {
     pub vault_account: Account<'info, VaultAccount>, // The vault PDA
 
     #[account(mut, signer)]
-    pub user: Signer<'info>, // The user's wallet, need to sign
+    pub owner: Signer<'info>, // The user's wallet, need to sign
 
     #[account(
         mut, // The user's account balance will change so it is mutable,
         token::mint = mint, // ensure this token account holds the correct token type
-        token::authority = user, //ensure the user is the authority over this token account
+        token::authority = owner, //ensure the owner is the authority over this token account
     )]
     pub user_token_account: Account<'info, TokenAccount>,
 
     #[account(
         init_if_needed, // Create the ATA if it doesn't exist, simplifying user flow (doesnt need separate action to create the ATA)
-        payer = user, // User pays for creation if needed
+        payer = owner, // Owner pays for creation if needed
         token::mint = mint, // Ensure the correct token type
         token::authority = vault_account, // Ensure the vault PDA is the authority over this
     )]
