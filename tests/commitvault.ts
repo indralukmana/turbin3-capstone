@@ -15,9 +15,17 @@ describe('commitvault', () => {
 		const owner = anchor.web3.Keypair.generate();
 
 		// Request 10 SOL airdrop to the owner account
-		await provider.connection.confirmTransaction(
-			await provider.connection.requestAirdrop(owner.publicKey, 10000000000), // Airdrop 10 SOL
-		);
+		const airdropSignature = await provider.connection.requestAirdrop(
+			owner.publicKey,
+			10000000000,
+		); // Airdrop 10 SOL
+		const latestBlockhash = await provider.connection.getLatestBlockhash();
+
+		await provider.connection.confirmTransaction({
+			signature: airdropSignature,
+			blockhash: latestBlockhash.blockhash,
+			lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+		});
 
 		// Find the PDA address for the vault account
 		const [vaultAccountPDA, _vaultBump] =
@@ -36,7 +44,7 @@ describe('commitvault', () => {
 		const tx = await program.methods
 			.initialize(unlockStrategy, planHash, new anchor.BN(cooldownEnd), mentor)
 			.accounts({
-				user: owner.publicKey, // The user account signing the transaction
+				owner: owner.publicKey, // The user account signing the transaction
 			})
 			.signers([owner])
 			.rpc();
