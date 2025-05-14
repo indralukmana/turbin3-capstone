@@ -152,8 +152,10 @@ pub struct Deposit<'info> {
     pub user_token_account: Account<'info, TokenAccount>,
 
     #[account(
-        init_if_needed, // Create the ATA if it doesn't exist, simplifying user flow (doesnt need separate action to create the ATA)
-        payer = owner, // Owner pays for creation if needed
+        // TODO: There seems to be issue with init_if_needed, comment for now
+        // init_if_needed, // Create the ATA if it doesn't exist, simplifying user flow (doesnt need separate action to create the ATA)
+        // payer = owner, // Owner pays for creation if needed
+        mut, // The vault ATA must already exist and is mutable
         token::mint = mint, // Ensure the correct token type
         token::authority = vault_account, // Ensure the vault PDA is the authority over this
     )]
