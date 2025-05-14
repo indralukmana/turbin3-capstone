@@ -11,7 +11,7 @@ import {
 } from './utils';
 import { initializeVault, setupVaultWithDeposit } from './utils.methods';
 
-describe('commitvault', () => {
+describe('commitvault - deposit', () => {
 	const { program, provider } = getProgram();
 	const { unlockStrategy, planHash, cooldownEnd, mentor } =
 		getVaultDefaultValues();
