@@ -43,7 +43,7 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
   - See: [05-learning-withdraw.md](./05-learning-withdraw.md)
 - [ ] 5. Testing and Debugging
   - [x] 5a. Test the `initialize` instruction.
-  - [ ] 5b. Test the `deposit` instruction:
+  - [x] 5b. Test the `deposit` instruction:
     - [ ] Verify token balance changes in user and vault ATAs.
     - [ ] Verify `vault_account.token_vault` is correctly updated.
   - [ ] 5c. Test the `withdraw` instruction:
