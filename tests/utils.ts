@@ -68,7 +68,7 @@ export const getVaultDefaultValues = () => {
 	const unlockStrategy = 0; // Cooldown
 	const planHash = Array.from(Buffer.alloc(32, 0)); // Example hash
 	// const cooldownEnd = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 1; // 1 days from now. Cannot be reasonably used for testing on solana-test-validator.
-	const cooldownEnd = Math.floor(Date.now() / 1000) + 1; // 1 second from now. For testing on solana-test-validator.
+	const cooldownEnd = Math.floor(Date.now() / 1000) + 3; // 3 second from now. For testing on solana-test-validator.
 	const mentor = anchor.web3.PublicKey.unique(); // Example mentor key
 
 	return { unlockStrategy, planHash, cooldownEnd, mentor };
