@@ -13,7 +13,7 @@ import { initializeVault } from './utils.methods';
 
 describe('commitvault - initialize', () => {
 	const { program, provider } = getProgram();
-	const { unlockStrategy, planHash, cooldownEnd, mentor } =
+	const { unlockStrategy, planHash, cooldownEnd, mentor, mentorTimeout } =
 		getVaultDefaultValues();
 
 	it('can be initialized', async () => {
@@ -28,7 +28,8 @@ describe('commitvault - initialize', () => {
 			unlockStrategy,
 			planHash,
 			cooldownEnd,
-			mentor,
+			mentor.publicKey,
+			mentorTimeout,
 		);
 
 		// Assert the initial state of the vault account
@@ -42,7 +43,7 @@ describe('commitvault - initialize', () => {
 		// check planHash
 		assert.deepEqual(vaultAccount.planHash, planHash);
 		// check mentor address
-		assert.ok(vaultAccount.mentor.equals(mentor));
+		assert.ok(vaultAccount.mentor.equals(mentor.publicKey));
 		// check mentor approval
 		assert.equal(vaultAccount.mentorApprovalStatus, 0);
 		// check the tokenVault address

@@ -9,10 +9,17 @@ export const initializeVault = async (
 	planHash: number[],
 	cooldownEnd: number,
 	mentor: anchor.web3.PublicKey,
+	mentorTimeout: number,
 ) => {
 	const { program } = getProgram();
 	const tx = await program.methods
-		.initialize(unlockStrategy, planHash, new anchor.BN(cooldownEnd), mentor)
+		.initialize(
+			unlockStrategy,
+			planHash,
+			new anchor.BN(cooldownEnd),
+			mentor,
+			new anchor.BN(mentorTimeout),
+		)
 		.accounts({
 			owner: owner.publicKey, // The user account signing the transaction
 		})
@@ -36,7 +43,8 @@ interface setupVaultWithDepositParams {
 	unlockStrategy: number;
 	planHash: number[];
 	cooldownEnd: number;
-	mentor?: anchor.web3.PublicKey;
+	mentor?: anchor.web3.Keypair;
+	mentorTimeout?: number;
 }
 
 interface setupVaultWithDepositReturn {
@@ -63,8 +71,9 @@ export async function setupVaultWithDeposit({
 	amountToDeposit = 100 * Math.pow(10, 6),
 	unlockStrategy = 0,
 	planHash = Array(32).fill(1), // Replace with actual hash if needed
-	cooldownEnd = Math.floor(Date.now() / 1000) + 3600,
-	mentor = anchor.web3.Keypair.generate().publicKey,
+	cooldownEnd = Math.floor(Date.now() / 1000) + 3,
+	mentor = anchor.web3.Keypair.generate(),
+	mentorTimeout = Math.floor(Date.now() / 1000) + 3,
 }: setupVaultWithDepositParams): Promise<setupVaultWithDepositReturn> {
 	// 1. Create owner keypair and airdrop SOL
 	const owner = anchor.web3.Keypair.generate();
@@ -126,7 +135,13 @@ export async function setupVaultWithDeposit({
 
 	// 5. Initialize vault
 	await program.methods
-		.initialize(unlockStrategy, planHash, new anchor.BN(cooldownEnd), mentor)
+		.initialize(
+			unlockStrategy,
+			planHash,
+			new anchor.BN(cooldownEnd),
+			mentor.publicKey,
+			new anchor.BN(mentorTimeout),
+		)
 		.accounts({
 			vaultAccount: vaultAccountPDA,
 			owner: owner.publicKey,

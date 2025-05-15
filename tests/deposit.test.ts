@@ -13,7 +13,7 @@ import { initializeVault, setupVaultWithDeposit } from './utils.methods';
 
 describe('commitvault - deposit', () => {
 	const { program, provider } = getProgram();
-	const { unlockStrategy, planHash, cooldownEnd, mentor } =
+	const { unlockStrategy, planHash, cooldownEnd, mentor, mentorTimeout } =
 		getVaultDefaultValues();
 
 	it('allows depositing token into the vault', async () => {
@@ -34,6 +34,7 @@ describe('commitvault - deposit', () => {
 			planHash,
 			cooldownEnd,
 			mentor,
+			mentorTimeout,
 		});
 
 		// Assert the balance changes

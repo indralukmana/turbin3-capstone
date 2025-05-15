@@ -55,34 +55,25 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
     - [x] If `unlock_strategy` is Mentor (1)
   - [x] 6b. Test `submit_plan` .
 - [ ] 7. Behavioral Gates & Vault State Management: Mentor Approval
-  - [ ] 7a. Implement `mentor_approve(ctx)` instruction:
-    - [ ] Define `#[derive(Accounts)]`. (Mentor signs, `has_one = mentor` on
+  - [x] 7a. Implement `mentor_approve(ctx)` instruction:
+    - [x] Define `#[derive(Accounts)]`. (Mentor signs, `has_one = mentor` on
           `vault_account`, mutates `vault_account`).
-    - [ ] Set `vault_account.mentor_approval_status = 1` (approved).
-    - [ ] If `unlock_strategy` is Mentor (1) and other conditions met (e.g.,
+    - [x] Set `vault_account.mentor_approval_status = 1` (approved).
+    - [x] If `unlock_strategy` is Mentor (1) and other conditions met (e.g.,
           plan submitted), set `vault_account.status = 1` (unlocked).
+    - [x] Test mentor approval.
   - [ ] 7b. Implement `mentor_reject(ctx)` instruction:
     - [ ] Define `#[derive(Accounts)]`. (Mentor signs, `has_one = mentor`,
           mutates `vault_account`).
     - [ ] Set `vault_account.mentor_approval_status = 2` (rejected).
     - [ ] Ensure `vault_account.status` remains `0` (locked) or resets if
           necessary.
-  - [ ] 7c. Implement Mentor Timeout Logic: `request_mentor_timeout_action(ctx)`
-    - [ ] Define `#[derive(Accounts)]`. (User/Owner signs, mutates
-          `vault_account`).
-    - [ ] Check if `Clock::get()?.unix_timestamp` is past
-          `plan_submission_timestamp + mentor_review_period` (requires adding
-          `plan_submission_timestamp: i64` to `VaultAccount` or a similar
-          mechanism).
-    - [ ] Set `vault_account.mentor_approval_status = 3` (timeout).
-    - [ ] _This instruction allows the user to signify the timeout. Further
-          actions (resubmit, switch mode) might be separate instructions or
-          handled client-side feeding into new on-chain state changes._
-  - [ ] 7d. Implement `change_mentor(ctx, new_mentor: Pubkey)` or
+  - [ ] 7c. Implement `change_mentor(ctx, new_mentor: Pubkey)` or
         `switch_to_solo_mode(ctx)` (Post-timeout actions)
     - [ ] Define respective `#[derive(Accounts)]`. (User/Owner signs, mutates
           `vault_account`).
-    - [ ] These would be callable if `mentor_approval_status == 3`.
+    - [ ] These would be callable if `mentor_approval_status` is `0` or `2` and
+          the cooldown period has passed.
   - [ ] 7e. Test all mentor-related instructions and state changes.
   - [ ] 8. Comprehensive Withdraw Tests:
     - [ ] Test successful withdrawal (cooldown met, vault status = 1).

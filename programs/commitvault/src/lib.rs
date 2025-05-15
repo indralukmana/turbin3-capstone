@@ -15,6 +15,7 @@ pub mod commitvault {
         plan_hash: [u8; 32],
         cooldown_end: i64,
         mentor: Pubkey,
+        mentor_timeout: i64,
     ) -> Result<()> {
         let vault = &mut ctx.accounts.vault_account;
         vault.owner = *ctx.accounts.owner.key;
@@ -24,6 +25,7 @@ pub mod commitvault {
         vault.plan_hash = plan_hash;
         vault.cooldown_end = cooldown_end;
         vault.mentor = mentor;
+        vault.mentor_timeout = mentor_timeout;
         vault.mentor_approval_status = 0; // initial pending
 
         msg!("Greetings from: {:?}", ctx.program_id);
@@ -124,6 +126,28 @@ pub mod commitvault {
         Ok(())
     }
 
+    pub fn mentor_approve(ctx: Context<MentorApprove>) -> Result<()> {
+        let vault = &mut ctx.accounts.vault_account;
+
+        // Check if the mentor is the same as the one in the vault account
+        if ctx.accounts.mentor.key() != vault.mentor {
+            return Err(ErrorCode::Unauthorized.into());
+        }
+
+        // Check if the plan is submitted
+        if vault.plan_hash == [0; 32] {
+            return Err(ErrorCode::MentorApprovalPendingOrRejected.into());
+        }
+
+        // Approve the plan
+        vault.mentor_approval_status = 1; // approved
+        vault.status = 1; // unlock the vault
+
+        msg!("Mentor approved the plan");
+
+        Ok(())
+    }
+
 }
 
 #[derive(Accounts)]
@@ -151,8 +175,9 @@ pub struct VaultAccount {
     pub token_vault: Pubkey,
     pub plan_hash: [u8; 32],
     pub cooldown_end: i64, // solo mode cooldown in Unix timestamp
+    pub mentor_timeout: i64, // mentor timeout in Unix timestamp
     pub mentor: Pubkey,
-    pub mentor_approval_status: u8, // 0 = pending, 1 = approved, 2 = rejected, 3 = timeout
+    pub mentor_approval_status: u8, // 0 = pending, 1 = approved, 2 = rejected
 }
 
 #[derive(Accounts)]
@@ -237,6 +262,24 @@ pub struct SubmitPlan<'info> {
 
     #[account(mut, signer)]
     pub owner: Signer<'info>, // The user's wallet, need to sign
+}
+
+#[derive(Accounts)]
+pub struct MentorApprove<'info> {
+    #[account(
+        mut,
+        seeds = [b"vault", owner.key().as_ref()],
+        bump,
+        has_one = owner @ crate::ErrorCode::Unauthorized,
+    )]
+    pub vault_account: Account<'info, VaultAccount>, // The vault PDA
+
+    /// CHECK: The owner wallet is only used to verify the PDA
+    #[account()]
+    pub owner: AccountInfo<'info>, // The vault owner wallet, need to sign
+
+    #[account(mut, signer)]
+    pub mentor: Signer<'info>, // The user's wallet, need to sign
 }
 
 #[error_code]
