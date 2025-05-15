@@ -136,7 +136,7 @@ pub mod commitvault {
 
         // Check if the plan is submitted
         if vault.plan_hash == [0; 32] {
-            return Err(ErrorCode::MentorApprovalPendingOrRejected.into());
+            return Err(ErrorCode::NoPlanSubmitted.into());
         }
 
         // Approve the plan
@@ -144,6 +144,27 @@ pub mod commitvault {
         vault.status = 1; // unlock the vault
 
         msg!("Mentor approved the plan");
+
+        Ok(())
+    }
+
+    pub fn mentor_reject(ctx: Context<MentorReject>) -> Result<()> {
+        let vault = &mut ctx.accounts.vault_account;
+
+        // Check if the mentor is the same as the one in the vault account
+        if ctx.accounts.mentor.key() != vault.mentor {
+            return Err(ErrorCode::Unauthorized.into());
+        }
+
+        // Check if the plan is submitted
+        if vault.plan_hash == [0; 32] {
+            return Err(ErrorCode::NoPlanSubmitted.into());
+        }
+
+        // Reject the plan
+        vault.mentor_approval_status = 2; // rejected
+
+        msg!("Mentor rejected the plan");
 
         Ok(())
     }
@@ -282,6 +303,24 @@ pub struct MentorApprove<'info> {
     pub mentor: Signer<'info>, // The user's wallet, need to sign
 }
 
+#[derive(Accounts)]
+pub struct MentorReject<'info> {
+    #[account(
+        mut,
+        seeds = [b"vault", owner.key().as_ref()],
+        bump,
+        has_one = owner @ crate::ErrorCode::Unauthorized,
+    )]
+    pub vault_account: Account<'info, VaultAccount>, // The vault PDA
+
+    /// CHECK: The owner wallet is only used to verify the PDA
+    #[account()]
+    pub owner: AccountInfo<'info>, // The vault owner wallet, need to sign
+
+    #[account(mut, signer)]
+    pub mentor: Signer<'info>, // The user's wallet, need to sign
+}
+
 #[error_code]
 pub enum ErrorCode {
     #[msg("You are not authorized to perform this action.")]
@@ -295,6 +334,9 @@ pub enum ErrorCode {
 
     #[msg("Mentor has not approved")]
     MentorApprovalPendingOrRejected,
+
+    #[msg("No plan submitted")]
+    NoPlanSubmitted,
 
     #[msg("Not valid unlock")]
     InvalidUnlockStrategy

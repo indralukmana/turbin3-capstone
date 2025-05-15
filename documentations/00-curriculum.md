@@ -62,12 +62,13 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
     - [x] If `unlock_strategy` is Mentor (1) and other conditions met (e.g.,
           plan submitted), set `vault_account.status = 1` (unlocked).
     - [x] Test mentor approval.
-  - [ ] 7b. Implement `mentor_reject(ctx)` instruction:
-    - [ ] Define `#[derive(Accounts)]`. (Mentor signs, `has_one = mentor`,
+  - [x] 7b. Implement `mentor_reject(ctx)` instruction:
+    - [x] Define `#[derive(Accounts)]`. (Mentor signs, `has_one = mentor`,
           mutates `vault_account`).
-    - [ ] Set `vault_account.mentor_approval_status = 2` (rejected).
-    - [ ] Ensure `vault_account.status` remains `0` (locked) or resets if
+    - [x] Set `vault_account.mentor_approval_status = 2` (rejected).
+    - [x] Ensure `vault_account.status` remains `0` (locked) or resets if
           necessary.
+    - [x] Test mentor rejection.
   - [ ] 7c. Implement `change_mentor(ctx, new_mentor: Pubkey)` or
         `switch_to_solo_mode(ctx)` (Post-timeout actions)
     - [ ] Define respective `#[derive(Accounts)]`. (User/Owner signs, mutates
