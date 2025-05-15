@@ -3,7 +3,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::associated_token::AssociatedToken;
 use anchor_spl::token::{self, Mint, Token, TokenAccount, Transfer as SplTransfer};
 
-declare_id!("3gmuFz3ysgVSCUp1SvMYRyCHFU6iEx2VdpyM4CTPG5Bs");
+declare_id!("GoXMpXZ1V2uFnECsAgZjWGjiexUXz279oKD6T39zVtdm");
 
 #[program]
 pub mod commitvault {

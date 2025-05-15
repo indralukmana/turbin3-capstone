@@ -6,13 +6,16 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-commitvault = "3gmuFz3ysgVSCUp1SvMYRyCHFU6iEx2VdpyM4CTPG5Bs"
+commitvault = "GoXMpXZ1V2uFnECsAgZjWGjiexUXz279oKD6T39zVtdm"
+
+[programs.devnet]
+commitvault = "GoXMpXZ1V2uFnECsAgZjWGjiexUXz279oKD6T39zVtdm"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
