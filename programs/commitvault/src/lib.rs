@@ -60,11 +60,6 @@ pub mod commitvault {
 
         let vault = &ctx.accounts.vault_account;
 
-        // Check if the vault is unlocked
-        if vault.status != 1 {
-            return Err(crate::ErrorCode::VaultNotUnlocked.into());
-        }
-
         match vault.unlock_strategy {
             0 => { // Cooldown strategy
                 let clock = Clock::get()?;
@@ -131,7 +126,7 @@ pub mod commitvault {
 
         // Check if the mentor is the same as the one in the vault account
         if ctx.accounts.mentor.key() != vault.mentor {
-            return Err(ErrorCode::Unauthorized.into());
+            return Err(ErrorCode::WrongMentor.into());
         }
 
         // Check if the plan is submitted
@@ -153,7 +148,7 @@ pub mod commitvault {
 
         // Check if the mentor is the same as the one in the vault account
         if ctx.accounts.mentor.key() != vault.mentor {
-            return Err(ErrorCode::Unauthorized.into());
+            return Err(ErrorCode::WrongMentor.into());
         }
 
         // Check if the plan is submitted
@@ -405,6 +400,9 @@ pub enum ErrorCode {
 
     #[msg("Mentor has not been changed")]
     MentorNotChanged,
+
+    #[msg("Mentor is not the same as the one in the vault account")]
+    WrongMentor,
 
     #[msg("No plan submitted")]
     NoPlanSubmitted,

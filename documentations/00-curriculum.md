@@ -9,7 +9,7 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
   implementation.
 - Develop skills in smart contract development, testing, and integration.
 
-## 📚 Core Building Roadmap (Learn by Doing) -
+## 📚 Solana Anchor Core Building Roadmap (Learn by Doing) -
 
 - [x] 1. VaultAccount & Basic Account Constraints
   - [x] 1a. Understand the VaultAccount structure and purpose.
@@ -82,30 +82,31 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
     - [x] Set `vault_account.unlock_strategy = 0` (Cooldown).
     - [x] Set `vault_account.mentor_approval_status = 0`.
     - [x] Test switching to solo mode.
-  - [ ] 8. Comprehensive Withdraw Tests:
-    - [ ] Test successful withdrawal (cooldown met, vault status = 1).
-    - [ ] Test successful withdrawal (mentor approved, vault status = 1).
-    - [ ] Test failure: attempt to withdraw before cooldown (vault status = 0 or
-          1 but time not met).
-    - [ ] Test failure: attempt to withdraw without mentor approval (vault
-          status = 0 or 1 but approval not met).
-    - [ ] Test failure: attempt to withdraw from a vault where status is still 0
+  - [x] 8. Comprehensive Withdraw Tests:
+    - [x] Test successful withdrawal (cooldown met, vault status = 1).
+    - [x] Test successful withdrawal (mentor approved, vault status = 1).
+    - [x] Test failure: attempt to withdraw before cooldown.
+    - [x] Test failure: attempt to withdraw without mentor approval .
+    - [x] Test failure: attempt to withdraw from a vault where status is still 0
           (locked).
-    - [ ] Test failure: attempt to withdraw by a non-owner.
-- [ ] 9. Error Handling
-  - [ ] 8a. Review and refine custom errors in Anchor for all new instructions.
-  - [ ] 8b. Ensure comprehensive error checks for edge cases and invalid states
+    - [x] Test failure: attempt to withdraw by a non-owner.
+- [x] 8. Error Handling
+  - [x] 8a. Review and refine custom errors in Anchor for all new instructions.
+  - [x] 8b. Ensure comprehensive error checks for edge cases and invalid states
         in all instructions.
-- [ ] 9. Off-chain Plan Storage Integration (Conceptual/Frontend Focus)
-  - [ ] 9a. Understand how the on-chain program interacts with the off-chain
+
+## Client Side DApp Development
+
+- [ ] 1. Off-chain Plan Storage Integration (Conceptual/Frontend Focus)
+  - [ ] 1a. Understand how the on-chain program interacts with the off-chain
         database (via plan hash).
-  - [ ] 9b. (Focus shifts to frontend/backend for actual integration).
-- [ ] 10. Frontend Integration
-  - [ ] 10a. Learn how to connect a frontend (e.g., React) to your Solana
-        program using Anchor client.
-  - [ ] 10b. Build UI for vault creation, plan submission, status display, and
+  - [ ] 1b. (Focus shifts to frontend/backend for actual integration).
+- [ ] 2. Frontend Integration
+  - [ ] 2a. Learn how to connect a frontend (e.g., React) to your Solana program
+        using Anchor client.
+  - [ ] 2b. Build UI for vault creation, plan submission, status display, and
         withdrawal.
-  - [ ] 10c. Build Mentor UI for reviewing and approving plans.
+  - [ ] 2c. Build Mentor UI for reviewing and approving plans.
 
 ---
 

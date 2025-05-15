@@ -84,9 +84,9 @@ export const getVaultDefaultValues = () => {
  *
  */
 export const simulateTimePassing = async (provider: anchor.AnchorProvider) => {
-	const beforeSlot = await provider.connection.getSlot();
-	const beforeTime = await provider.connection.getBlockTime(beforeSlot);
-	console.log(`Before time: ${new Date(beforeTime * 1000)}`);
+	// const beforeSlot = await provider.connection.getSlot();
+	// const beforeTime = await provider.connection.getBlockTime(beforeSlot);
+	// console.log(`Before time: ${new Date(beforeTime * 1000)}`);
 
 	const slotAdvancement = 10;
 	for (let i = 0; i < slotAdvancement; i++) {
@@ -97,7 +97,7 @@ export const simulateTimePassing = async (provider: anchor.AnchorProvider) => {
 	const afterSlot = await provider.connection.getSlot();
 	const afterTime = await provider.connection.getBlockTime(afterSlot);
 
-	console.log(`After time: ${new Date(afterTime * 1000)}`);
-	console.log(`Slots advanced: ${afterSlot - beforeSlot}`);
-	console.log(`Time advanced: ${afterTime - beforeTime} seconds`);
+	// console.log(`After time: ${new Date(afterTime * 1000)}`);
+	// console.log(`Slots advanced: ${afterSlot - beforeSlot}`);
+	// console.log(`Time advanced: ${afterTime - beforeTime} seconds`);
 };
