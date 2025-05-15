@@ -105,6 +105,25 @@ pub mod commitvault {
         Ok(())
 
     }
+
+    pub fn submit_plan(ctx: Context<SubmitPlan>, plan_hash: [u8; 32]) -> Result<()> {
+        let vault = &mut ctx.accounts.vault_account;
+        vault.plan_hash = plan_hash;
+
+        if vault.unlock_strategy == 0 {
+            vault.status = 1; // unlock the vault
+        } else if vault.unlock_strategy == 1 {
+            vault.mentor_approval_status = 0; // reset mentor approval status
+            msg!("Mentor approval resetted for new plan");
+        } else {
+            return Err(ErrorCode::InvalidUnlockStrategy.into());
+        }
+
+        msg!("Plan submitted with hash: {:?}", plan_hash);
+
+        Ok(())
+    }
+
 }
 
 #[derive(Accounts)]
@@ -204,6 +223,20 @@ pub struct Withdraw<'info> {
     pub token_program: Program<'info, Token>, // The SPL token program itself
 
     pub mint: Account<'info, Mint>, // The token mint account
+}
+
+#[derive(Accounts)]
+pub struct SubmitPlan<'info> {
+    #[account(
+        mut,
+        seeds = [b"vault", owner.key().as_ref()],
+        bump,
+        has_one = owner @ crate::ErrorCode::Unauthorized, 
+    )]
+    pub vault_account: Account<'info, VaultAccount>, // The vault PDA
+
+    #[account(mut, signer)]
+    pub owner: Signer<'info>, // The user's wallet, need to sign
 }
 
 #[error_code]

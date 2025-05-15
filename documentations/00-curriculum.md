@@ -41,40 +41,19 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
     - [x] Add checks for vault status ('unlocked') and unlock strategy
           conditions.
   - See: [05-learning-withdraw.md](./05-learning-withdraw.md)
-- [ ] 5. Testing and Debugging
+- [x] 5. Initialize and Deposit - Testing and Debugging
   - [x] 5a. Test the `initialize` instruction.
   - [x] 5b. Test the `deposit` instruction:
     - [x] Verify token balance changes in user and vault ATAs.
     - [x] Verify `vault_account.token_vault` is correctly updated.
-  - [ ] 5c. Test the `withdraw` instruction:
-    - [ ] Test successful withdrawal (cooldown met, vault status = 1).
-    - [ ] Test successful withdrawal (mentor approved, vault status = 1).
-    - [ ] Test failure: attempt to withdraw before cooldown (vault status = 0 or
-          1 but time not met).
-    - [ ] Test failure: attempt to withdraw without mentor approval (vault
-          status = 0 or 1 but approval not met).
-    - [ ] Test failure: attempt to withdraw from a vault where status is still 0
-          (locked).
-    - [ ] Test failure: attempt to withdraw by a non-owner.
-- [ ] 6. Behavioral Gates & Vault State Management: Plan Hash & Cooldown
-  - [ ] 6a. Implement `submit_plan(ctx, plan_hash: [u8; 32])` instruction:
-    - [ ] Define `#[derive(Accounts)]` for `submit_plan`. (User signs, mutates
+- [x] 6. Behavioral Gates & Vault State Management: Plan Hash
+  - [x] 6a. Implement `submit_plan(ctx, plan_hash: [u8; 32])` instruction:
+    - [x] Define `#[derive(Accounts)]` for `submit_plan`. (User signs, mutates
           `vault_account`)
-    - [ ] Implement `submit_plan` function to update `vault_account.plan_hash`.
-    - [ ] If `unlock_strategy` is Cooldown (0):
-      - [ ] Optionally, set `vault_account.cooldown_end` based on current time +
-            duration (if not set at init or needs reset).
-      - [ ] _Consider: Does submitting a plan immediately start a cooldown or is
-            it initiated elsewhere? Define this._
-  - [ ] 6b. Implement `unlock_vault_cooldown(ctx)` instruction (or integrate
-        into `withdraw` checks if preferred, ensuring status update):
-    - [ ] Define `#[derive(Accounts)]`. (User signs, mutates `vault_account`)
-    - [ ] Check if `Clock::get()?.unix_timestamp >= vault_account.cooldown_end`.
-    - [ ] If conditions met, set `vault_account.status = 1` (unlocked).
-    - [ ] _This clarifies how the vault becomes "unlocked" for the cooldown
-          strategy._
-  - [ ] 6c. Test `submit_plan` and `unlock_vault_cooldown` (or related
-        `withdraw` logic ensuring status update).
+    - [x] Implement `submit_plan` function to update `vault_account.plan_hash`.
+    - [x] If `unlock_strategy` is Cooldown (0)
+    - [x] If `unlock_strategy` is Mentor (1)
+  - [ ] 6b. Test `submit_plan` .
 - [ ] 7. Behavioral Gates & Vault State Management: Mentor Approval
   - [ ] 7a. Implement `mentor_approve(ctx)` instruction:
     - [ ] Define `#[derive(Accounts)]`. (Mentor signs, `has_one = mentor` on
@@ -105,7 +84,17 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
           `vault_account`).
     - [ ] These would be callable if `mentor_approval_status == 3`.
   - [ ] 7e. Test all mentor-related instructions and state changes.
-- [ ] 8. Error Handling
+  - [ ] 8. Comprehensive Withdraw Tests:
+    - [ ] Test successful withdrawal (cooldown met, vault status = 1).
+    - [ ] Test successful withdrawal (mentor approved, vault status = 1).
+    - [ ] Test failure: attempt to withdraw before cooldown (vault status = 0 or
+          1 but time not met).
+    - [ ] Test failure: attempt to withdraw without mentor approval (vault
+          status = 0 or 1 but approval not met).
+    - [ ] Test failure: attempt to withdraw from a vault where status is still 0
+          (locked).
+    - [ ] Test failure: attempt to withdraw by a non-owner.
+- [ ] 9. Error Handling
   - [ ] 8a. Review and refine custom errors in Anchor for all new instructions.
   - [ ] 8b. Ensure comprehensive error checks for edge cases and invalid states
         in all instructions.

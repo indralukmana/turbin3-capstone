@@ -10,14 +10,17 @@ mechanisms.
 
 Core vault initialization, token deposit, and token withdrawal (with placeholder
 checks for unlock status/strategy) have been implemented. Testing for the
-`initialize` instruction (Curriculum Topic 5a) is complete.
+`initialize` instruction (Curriculum Topic 5a) is complete. Added the
+`SubmitPlan` struct and `submit_plan` function to
+`programs/commitvault/src/lib.rs`.
 
 ## Next steps
 
 Based on the curriculum and current status, the next steps are:
 
-- Completing tests for deposit and withdrawal under various conditions.
-- Implementing the `submit_plan` instruction.
+- Correct the implementation of the `submit_plan` instruction in
+  `programs/commitvault/src/lib.rs`.
+- Test the `submit_plan` instruction.
 - Implementing the full logic for `unlock_vault_cooldown` (or integrating it
   into `withdraw`).
 - Implementing the full suite of mentor instructions (`mentor_approve`,

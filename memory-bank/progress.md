@@ -20,10 +20,10 @@ build. This includes:
 - Writing and completing tests for the `deposit` and `withdraw` instructions
   (Curriculum Topics 5b and 5c).
 
-## Current status
+## Status
 
-Core fund movement is in place; behavioral gate logic and comprehensive testing
-are the next major implementation phases.
+Core fund movement is in place; `submit_plan` instruction (with corrections) is
+the next major implementation phase.
 
 ## Known issues
 
