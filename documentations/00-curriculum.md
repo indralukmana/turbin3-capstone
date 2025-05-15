@@ -53,7 +53,7 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
     - [x] Implement `submit_plan` function to update `vault_account.plan_hash`.
     - [x] If `unlock_strategy` is Cooldown (0)
     - [x] If `unlock_strategy` is Mentor (1)
-  - [ ] 6b. Test `submit_plan` .
+  - [x] 6b. Test `submit_plan` .
 - [ ] 7. Behavioral Gates & Vault State Management: Mentor Approval
   - [ ] 7a. Implement `mentor_approve(ctx)` instruction:
     - [ ] Define `#[derive(Accounts)]`. (Mentor signs, `has_one = mentor` on

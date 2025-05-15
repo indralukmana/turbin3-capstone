@@ -32,7 +32,7 @@ export const initializeVault = async (
 interface setupVaultWithDepositParams {
 	provider: anchor.AnchorProvider;
 	program: anchor.Program<Commitvault>;
-	amountToDeposit: number;
+	amountToDeposit?: number;
 	unlockStrategy: number;
 	planHash: number[];
 	cooldownEnd: number;
@@ -60,7 +60,7 @@ interface setupVaultWithDepositReturn {
 export async function setupVaultWithDeposit({
 	provider,
 	program,
-	amountToDeposit,
+	amountToDeposit = 100 * Math.pow(10, 6),
 	unlockStrategy = 0,
 	planHash = Array(32).fill(1), // Replace with actual hash if needed
 	cooldownEnd = Math.floor(Date.now() / 1000) + 3600,
