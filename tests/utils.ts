@@ -6,6 +6,7 @@ const ONE_SOL = 100_0000_000; // 1 SOL in lamports
 export const airdropToAddress = async (
 	provider: anchor.AnchorProvider,
 	addressToAirdrop: anchor.web3.PublicKey,
+	airdropAmount?: number,
 ) => {
 	// const solBalanceBefore = await provider.connection.getBalance(
 	// 	addressToAirdrop,
@@ -16,9 +17,11 @@ export const airdropToAddress = async (
 	// 	} SOL`,
 	// );
 
+	const amount = airdropAmount ? airdropAmount : ONE_SOL;
+
 	const airdropSignature = await provider.connection.requestAirdrop(
 		addressToAirdrop,
-		ONE_SOL,
+		amount,
 	);
 	const latestBlockhash = await provider.connection.getLatestBlockhash();
 	await provider.connection.confirmTransaction({
@@ -35,6 +38,10 @@ export const airdropToAddress = async (
 	// 		solBalanceAfter / anchor.web3.LAMPORTS_PER_SOL
 	// 	} SOL`,
 	// );
+
+	return {
+		airdropSignature,
+	};
 };
 
 // Find the PDA address for the vault account
@@ -60,7 +67,7 @@ export const getVaultDefaultValues = () => {
 	// vault default values
 	const unlockStrategy = 0; // Cooldown
 	const planHash = Array.from(Buffer.alloc(32, 0)); // Example hash
-	const cooldownEnd = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30; // 30 days from now
+	const cooldownEnd = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 1; // 1 days from now
 	const mentor = anchor.web3.PublicKey.unique(); // Example mentor key
 
 	return { unlockStrategy, planHash, cooldownEnd, mentor };
