@@ -76,13 +76,12 @@ Personal learning curriculum for building a Solana dApp called CommitVault.
     - [x] These would be callable if `mentor_approval_status` is `0` or `2` and
           the cooldown period has passed.
     - [x] Test changing mentor.
-  - [ ] 7d. Implement `switch_to_solo_mode(ctx, cooldown_end: i64)` instruction:
-    - [ ] Define `#[derive(Accounts)]`. (User/Owner signs, mutates
+  - [x] 7d. Implement `switch_to_solo_mode(ctx, cooldown_end: i64)` instruction:
+    - [x] Define `#[derive(Accounts)]`. (User/Owner signs, mutates
           `vault_account`).
-    - [ ] Set `vault_account.unlock_strategy = 0` (Cooldown).
-    - [ ] Set `vault_account.mentor_approval_status = 0`.
-    - [ ] Test switching to solo mode.
-  - [ ] 7e. Test all mentor-related instructions and state changes.
+    - [x] Set `vault_account.unlock_strategy = 0` (Cooldown).
+    - [x] Set `vault_account.mentor_approval_status = 0`.
+    - [x] Test switching to solo mode.
   - [ ] 8. Comprehensive Withdraw Tests:
     - [ ] Test successful withdrawal (cooldown met, vault status = 1).
     - [ ] Test successful withdrawal (mentor approved, vault status = 1).

@@ -188,6 +188,25 @@ pub mod commitvault {
         Ok(())
     }
 
+    pub fn switch_to_solo_mode(ctx: Context<SwitchToSoloMode>, cooldown_end: i64) -> Result<()> {
+        let vault = &mut ctx.accounts.vault_account;
+
+        // Check if in mentor approval mode
+        if vault.unlock_strategy != 1 {
+            return Err(ErrorCode::InvalidUnlockStrategy.into());
+        }
+
+        // Switch to solo mode
+        vault.unlock_strategy = 0; // cooldown strategy
+        vault.mentor_approval_status = 0; // reset mentor approval status
+        vault.status = 0; // lock the vault
+        vault.cooldown_end = cooldown_end;
+
+        msg!("Switched to solo mode");
+
+        Ok(())
+    }
+
 }
 
 #[derive(Accounts)]
@@ -342,6 +361,21 @@ pub struct MentorReject<'info> {
 
 #[derive(Accounts)]
 pub struct ChangeMentor<'info> {
+    #[account(
+        mut,
+        seeds = [b"vault", owner.key().as_ref()],
+        bump,
+        has_one = owner @ crate::ErrorCode::Unauthorized, 
+    )]
+    pub vault_account: Account<'info, VaultAccount>, // The vault PDA
+
+    #[account(mut, signer)]
+    pub owner: Signer<'info>, // The user's wallet, need to sign
+}
+
+
+#[derive(Accounts)]
+pub struct SwitchToSoloMode<'info> {
     #[account(
         mut,
         seeds = [b"vault", owner.key().as_ref()],
