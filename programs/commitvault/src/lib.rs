@@ -169,6 +169,25 @@ pub mod commitvault {
         Ok(())
     }
 
+    pub fn change_mentor(ctx: Context<ChangeMentor>, new_mentor: Pubkey, mentor_timeout: i64) -> Result<()> {
+        let vault = &mut ctx.accounts.vault_account;
+
+        // Check if the new mentor is different from the current one
+        if vault.mentor == new_mentor {
+            return Err(ErrorCode::MentorNotChanged.into());
+        }
+
+        // Change the mentor
+        vault.mentor = new_mentor;
+        vault.mentor_timeout = mentor_timeout;
+        vault.mentor_approval_status = 0; // reset mentor approval status
+        vault.status = 0; // lock the vault
+
+        msg!("Mentor changed to: {:?}", new_mentor);
+
+        Ok(())
+    }
+
 }
 
 #[derive(Accounts)]
@@ -321,6 +340,21 @@ pub struct MentorReject<'info> {
     pub mentor: Signer<'info>, // The user's wallet, need to sign
 }
 
+#[derive(Accounts)]
+pub struct ChangeMentor<'info> {
+    #[account(
+        mut,
+        seeds = [b"vault", owner.key().as_ref()],
+        bump,
+        has_one = owner @ crate::ErrorCode::Unauthorized, 
+    )]
+    pub vault_account: Account<'info, VaultAccount>, // The vault PDA
+
+    #[account(mut, signer)]
+    pub owner: Signer<'info>, // The user's wallet, need to sign
+}
+
+
 #[error_code]
 pub enum ErrorCode {
     #[msg("You are not authorized to perform this action.")]
@@ -334,6 +368,9 @@ pub enum ErrorCode {
 
     #[msg("Mentor has not approved")]
     MentorApprovalPendingOrRejected,
+
+    #[msg("Mentor has not been changed")]
+    MentorNotChanged,
 
     #[msg("No plan submitted")]
     NoPlanSubmitted,
