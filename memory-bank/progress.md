@@ -11,7 +11,6 @@ Testing for the `initialize` instruction (Curriculum Topic 5a) is complete.
 The behavioral gate logic for unlocking the vault is the main remaining part to
 build. This includes:
 
-- Implementing the `submit_plan` instruction.
 - Implementing the full logic for `unlock_vault_cooldown` (or integrating it
   into `withdraw`).
 - Implementing the full suite of mentor instructions (`mentor_approve`,
@@ -22,14 +21,13 @@ build. This includes:
 
 ## Status
 
-Core fund movement is in place; `submit_plan` instruction (with corrections) is
-the next major implementation phase.
+Completed topic 6 in the 00-curriculum.md
 
 ## Known issues
 
-There are no explicitly mentioned known issues in the provided information,
-other than the placeholder checks for unlock status/strategy in the current
-withdrawal implementation.
+Cooldown need to be simulated by passing time in the test. The
+solana-test-validator howeverd doesn't support this. Will need to change to
+Solana Bankrun for proper testing.
 
 ## Evolution of project decisions
 

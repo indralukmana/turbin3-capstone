@@ -4,7 +4,8 @@
 
 The current focus is on implementing the behavioral gate logic for unlocking the
 vault, specifically the plan submission, cooldown timer, and mentor approval
-mechanisms.
+mechanisms. We are currently debugging an "unknown signer" error in the
+`submit_plan` test.
 
 ## Recent changes
 
@@ -12,15 +13,13 @@ Core vault initialization, token deposit, and token withdrawal (with placeholder
 checks for unlock status/strategy) have been implemented. Testing for the
 `initialize` instruction (Curriculum Topic 5a) is complete. Added the
 `SubmitPlan` struct and `submit_plan` function to
-`programs/commitvault/src/lib.rs`.
+`programs/commitvault/src/lib.rs`. Added tests for `submit_plan` in
+`tests/submit.test.ts`.
 
 ## Next steps
 
 Based on the curriculum and current status, the next steps are:
 
-- Correct the implementation of the `submit_plan` instruction in
-  `programs/commitvault/src/lib.rs`.
-- Test the `submit_plan` instruction.
 - Implementing the full logic for `unlock_vault_cooldown` (or integrating it
   into `withdraw`).
 - Implementing the full suite of mentor instructions (`mentor_approve`,
@@ -36,6 +35,8 @@ Based on the curriculum and current status, the next steps are:
   verification).
 - Handling potential mentor unresponsiveness and allowing users to change
   mentors or switch strategies.
+- Debugging the "unknown signer" error in the `submit_plan` test by adding
+  logging to both the test and the program to compare public keys.
 
 ## Important patterns and preferences
 
@@ -62,6 +63,6 @@ Based on the curriculum and current status, the next steps are:
 - **Structure:** Well-organized Anchor project with excellent, detailed
   documentation and diagrams focused on a learning journey.
 - **Tech:** Solana, Anchor (Rust), TypeScript (tests).
-- **Status:** Core fund movement is in place; behavioral gate logic is the next
-  major implementation phase. The `documentations/00-curriculum.md` is the best
-  place to see the up-to-date plan.
+- **Status:** Core fund movement is in place; currently debugging the
+  `submit_plan` instruction test. The `documentations/00-curriculum.md` is the
+  best place to see the up-to-date plan.
