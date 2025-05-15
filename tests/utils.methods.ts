@@ -38,7 +38,7 @@ interface setupVaultWithDepositParams {
 	unlockStrategy: number;
 	planHash: number[];
 	cooldownEnd: number;
-	mentor: anchor.web3.PublicKey;
+	mentor?: anchor.web3.PublicKey;
 }
 
 interface setupVaultWithDepositReturn {
