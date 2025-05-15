@@ -19,8 +19,6 @@ export const initializeVault = async (
 		.signers([owner])
 		.rpc();
 
-	console.log('Your transaction signature', tx);
-
 	const [vaultAccountPDA] = getVaultPDA(owner);
 
 	// Fetch the created vault account

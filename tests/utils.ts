@@ -67,8 +67,36 @@ export const getVaultDefaultValues = () => {
 	// vault default values
 	const unlockStrategy = 0; // Cooldown
 	const planHash = Array.from(Buffer.alloc(32, 0)); // Example hash
-	const cooldownEnd = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 1; // 1 days from now
+	// const cooldownEnd = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 1; // 1 days from now. Cannot be reasonably used for testing on solana-test-validator.
+	const cooldownEnd = Math.floor(Date.now() / 1000) + 1; // 1 second from now. For testing on solana-test-validator.
 	const mentor = anchor.web3.PublicKey.unique(); // Example mentor key
 
 	return { unlockStrategy, planHash, cooldownEnd, mentor };
+};
+
+/**
+ * This is unreliable time simulation. A much better way to simulate time is using Solana
+ * Bankrun test framework. This is just a placeholder for the current solana-test-validator.
+ * The current test work can't be used for testing time in precise way.
+ *
+ * https://solana.com/developers/guides/advanced/testing-with-jest-and-bankrun
+ *
+ */
+export const simulateTimePassing = async (provider: anchor.AnchorProvider) => {
+	const beforeSlot = await provider.connection.getSlot();
+	const beforeTime = await provider.connection.getBlockTime(beforeSlot);
+	console.log(`Before time: ${new Date(beforeTime * 1000)}`);
+
+	const slotAdvancement = 10;
+	for (let i = 0; i < slotAdvancement; i++) {
+		await airdropToAddress(provider, anchor.web3.PublicKey.unique());
+	}
+
+	// Verify time advancement
+	const afterSlot = await provider.connection.getSlot();
+	const afterTime = await provider.connection.getBlockTime(afterSlot);
+
+	console.log(`After time: ${new Date(afterTime * 1000)}`);
+	console.log(`Slots advanced: ${afterSlot - beforeSlot}`);
+	console.log(`Time advanced: ${afterTime - beforeTime} seconds`);
 };
