@@ -243,6 +243,7 @@ This project places a strong emphasis on learning and clear documentation.
 
 - **Frontend UI Development:** Build a React (or similar) frontend for user
   interaction and mentor dashboards.
+  - [Frontend Product Requirements Document](./documentations/frontend-prd.md)
 - **Off-chain Plan Database Integration:** Implement a backend service to store
   and manage the detailed investment plans.
 
