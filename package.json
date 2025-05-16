@@ -1,6 +1,7 @@
 {
 	"license": "Apache-2.0",
 	"version": "0.0.1",
+	"packageManager": "yarn@4.5.0",
 	"scripts": {
 		"dev": "yarn dev:frontend",
 		"dev:frontend": "vite --open",
