@@ -46,8 +46,7 @@ Not _user psychology_ or _decision quality_.
 
 It forces a pause for **intentionality** by requiring users to:
 
-1. **Commit On-Chain:** Lock funds until your plan's conditions are met (via its
-   hash).
+1. **Commit On-Chain:** Lock funds until you have clear investment plan.
 2. **Define an Investment Plan:** Articulate your strategy.
 3. **Unlock Strategically:** Accessible only after you have a good plan.
 
@@ -59,13 +58,14 @@ It forces a pause for **intentionality** by requiring users to:
 }
 </style>
 
-**Core Loop:** Deposit -> Plan -> Commit (Hash) -> Unlock -> Withdraw
+## How
+
+**Core Loop:** Deposit -> Plan -> Commit Plan -> Unlock -> Withdraw
 
 - **Vault Creation:** Secure, personal on-chain vaults (PDAs).
 - **Unlock Strategies:**
   - **Solo Mode:** Time-based cooldown after plan submission.
   - **Mentor Mode:** Requires approval from a chosen mentor.
-- **Plan Commitment:** Users write a plan, its **hash is stored on-chain**.
 - **SPL Token Support:** Deposit & withdraw standard Solana tokens (e.g., USDC).
 - **Secure & Transparent:** Built on Solana, leveraging its speed and security.
 
@@ -123,7 +123,7 @@ table {
 ## Go-To-Market
 
 - **Open & Free to Use:** Drive adoption and gather feedback.
-- **Potential Future Monetization (Post V1 - Explorable):**
+- **Potential Future Monetization (Post PoC - Explorable):**
   - Premium features (advanced analytics, plan templates).
   - Premium deep research on market insights.
   - Premium investment ideas.
@@ -147,8 +147,6 @@ table {
   ecosystems.
 - **Educational Content:** Demonstrating the value of planned capital
   deployment.
-- **Referral/Ambassador Program (Future):** Incentivize sharing.
-- **Showcase Mentor Mode:** Highlight the benefits of accountability partners.
 
 ---
 
