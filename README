@@ -221,12 +221,12 @@ This project places a strong emphasis on learning and clear documentation.
 - **[User Stories](./documentations/user-story.md)**
 - **Learning Curriculum:** A step-by-step guide to understanding the
   Solana/Anchor concepts used in building CommitVault.
-  - [00-curriculum.md](./documentations/learning//00-curriculum.md) (Roadmap)
+  - [00-curriculum.md](./documentations/learning/00-curriculum.md) (Roadmap)
   - [01-learning-vaultaccount.md](./documentations/learning/01-learning-vaultaccount.md)
   - [02-learning-initialize.md](./documentations/learning/02-learning-initialize.md)
-  - [03-learning-pda.md](./documentations/learning//03-learning-pda.md)
-  - [04-learning-cpi-deposit.md](./documentations/learning//04-learning-cpi-deposit.md)
-  - [05-learning-withdraw.md](./documentations/learning//05-learning-withdraw.md)
+  - [03-learning-pda.md](./documentations/learning/03-learning-pda.md)
+  - [04-learning-cpi-deposit.md](./documentations/learning/04-learning-cpi-deposit.md)
+  - [05-learning-withdraw.md](./documentations/learning/05-learning-withdraw.md)
 
 ## Latest deployed program ID
 
