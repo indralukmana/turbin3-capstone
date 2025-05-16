@@ -4,6 +4,8 @@
 	"scripts": {
 		"dev": "yarn dev:frontend",
 		"dev:frontend": "vite --open",
+		"build": "vite build",
+		"build:dev": "vite build --mode development",
 		"lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
 		"lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
 	},
