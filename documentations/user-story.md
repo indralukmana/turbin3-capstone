@@ -2,7 +2,7 @@
 
 ## Project Name
 
-**CommitVault – Behavioral Gate for Onchain Capital Deployment**
+**CommitVault - Behavioral Gate for Onchain Capital Deployment**
 
 ## Value Proposition
 
@@ -23,7 +23,7 @@ This is a novel behavioral primitive in onchain UX.
 
 ### The Self-Aware Trader
 
-- **Demographics:** 25–40, active DeFi users
+- **Demographics:** 25-40, active DeFi users
 - **Interests:** Long-term investing, personal improvement, financial strategy
 - **Motivations:** Avoid emotional or irrational trades; build a repeatable
   process
@@ -32,7 +32,7 @@ This is a novel behavioral primitive in onchain UX.
 
 ### The Accountability Coach / Trading Mentor
 
-- **Demographics:** 30–50, experienced traders or financial coaches
+- **Demographics:** 30-50, experienced traders or financial coaches
 - **Interests:** Mentoring, structured systems, risk coaching
 - **Motivations:** Help others improve, build credibility as a guide
 - **Pain Points:** Lack of enforcement or visibility into mentee actions
@@ -45,7 +45,7 @@ This is a novel behavioral primitive in onchain UX.
 - **User Persona:** Self-Aware Trader
 - **Goal:** Enforce intentional planning before using funds
 - **User Story:** As a trader, I want to be required to write a clear plan for
-  how I’ll use the funds before unlocking the vault, so I can reduce impulsive
+  how I'll use the funds before unlocking the vault, so I can reduce impulsive
   or emotional decisions.
 - **Functionality:**
   - Create a vault and deposit USDC/SOL
@@ -62,8 +62,8 @@ This is a novel behavioral primitive in onchain UX.
   - Write plan using a basic input form
   - Plan structure is suggested: _Objective, Risk Model, Entry/Exit, Time
     Horizon_
-  - See real-time gate status: “Plan Submitted,” “Waiting Cooldown,” “Awaiting
-    Mentor Approval,” etc.
+  - See real-time gate status: "Plan Submitted," "Waiting Cooldown," "Awaiting
+    Mentor Approval," etc.
 
 ### User Story ID: COMMIT-001b
 
@@ -93,7 +93,7 @@ This is a novel behavioral primitive in onchain UX.
 - **Priority:** Medium
 - **User Persona:** Coach / Mentor
 - **Goal:** Help others apply discipline before trading
-- **User Story:** As a mentor, I want to review my mentee’s plan, leave
+- **User Story:** As a mentor, I want to review my mentee's plan, leave
   comments, and approve only when I believe the plan is solid, so I can support
   smarter trading decisions.
 - **Functionality:**
